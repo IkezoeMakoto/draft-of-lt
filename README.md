@@ -1,4 +1,4 @@
-# ネタ
+# ネタ帳
 1. [~~cakephp3 のプラグイン作った話~~](draft/1/article.md)
 2. 毎日コミットするようになった結果
 3. docker-compose-dev を作った話
