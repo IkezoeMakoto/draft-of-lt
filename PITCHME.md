@@ -8,14 +8,13 @@
 1. [大変だったこと](#大変だったこと)
 ---
 ## 作ったもの
-https://packagist.org/packages/ikezoe-makoto/cakephp3bulker
-
 ![cakephp3bulker.png](images/cakephp3bulker.png)
-
+---
+## 作ったもの
+https://packagist.org/packages/ikezoe-makoto/cakephp3bulker
 cakephp3 にバルクインサートを提供するプラグインを作った(更新もできるよ)
 ---
 ## 使い方
-README に一応書いてあります。
 - インストール  
 ```
 composer require ikezoe-makoto/cakephp3bulker
@@ -25,6 +24,7 @@ bootstrap.php でプラグインを読み込む
 ```php:/config/bootstrap.php
 Plugin::load('Cakephp3Bulker');
 ```
+※README に一応書いてあります。
 ---
 モデルで Behavior を読み込む
 ```php:src/Model/Table/UsersTable.php
@@ -40,16 +40,18 @@ class UsersTable extends Table
 ```
 ---
 - 使用方法  
-saveBulk を使って保存、更新できる  
-$manySaveData にプライマリーキーがあれば更新になる。
+saveBulk を使って保存、更新できる
+
 ```php:src/Model/Table/UsersTable.php
+// $manySaveData にプライマリーキーがあれば更新になる。
 $this->saveBulk($manySaveData);
 ```
 ---
 ## 作ろうと思った背景
-cakephp3でバルクインサートしたいと思って調べたが、実装するための方法はあっても、
-プラグインなどは何もなかった。どうせなら自分で実装しないでプラグインでパパッと導入したいよね。
-今ならプラグインないし、作ったらバズるかも？という安直な思考で作りました。
+- cakephp3でバルクインサートしたかった
+- 調べてもプラグインはなかった。
+- プラグインでパパッと導入したかった。
+- 今ならプラグインないし、作ったらバズるかも？
 ---
 ## プラグインの作り方
 1. cake3ではbakeでプラグインの初期状態も作ることができます。
@@ -72,6 +74,7 @@ $ tree
     └── empty
 5 directories, 7 files
 ```
++++
 2. bakeできたらここに必要な処理を記述していきます。
 1. ロジックの実装が終わったらcomposer.jsonにパッケージ名など必要な情報を記述しgithubなどにあげます。
 1. compoer require で入れられるようにするために packagist に登録する
@@ -83,5 +86,5 @@ $ tree
     - cake3のbakeのデフォルトではアプリケーションからのテストをする前提でしか書かれていない
     - プラグインとして提供するためには単体でのテストを書きたい
 - 英語でドキュメントを書くということ
+
 +++
-あ
