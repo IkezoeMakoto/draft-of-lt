@@ -11,9 +11,10 @@
 ![cakephp3bulker.png](images/cakephp3bulker.png)
 ---
 ## 作ったもの
-https://packagist.org/packages/ikezoe-makoto/cakephp3bulker  
+- https://packagist.org/packages/ikezoe-makoto/cakephp3bulker  
 
-cakephp3 にバルクインサートを提供するプラグインを作った(更新もできるよ)
+- cakephp3 にバルクインサートを提供するプラグインを作った(更新もできるよ)
+
 ---
 ## 使い方
 - インストール  
