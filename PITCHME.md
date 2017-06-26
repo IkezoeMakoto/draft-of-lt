@@ -20,14 +20,15 @@
 ```
 composer require ikezoe-makoto/cakephp3bulker
 ```
-### 読み込み  
-bootstrap.php でプラグインを読み込む
+- 読み込み  
+    - bootstrap.php でプラグインを読み込む
 ```php:/config/bootstrap.php
 Plugin::load('Cakephp3Bulker');
 ```
 ※README に一応書いてあります。
 ---
-モデルで Behavior を読み込む
+## 使い方
+- モデルで Behavior を読み込む
 ```php:src/Model/Table/UsersTable.php
 class UsersTable extends Table
 {
@@ -40,7 +41,8 @@ class UsersTable extends Table
 }
 ```
 ---
-使用方法  
+## 使い方
+- 使用方法  
 ```php:src/Model/Table/UsersTable.php
 // $manySaveData にプライマリーキーがあれば更新になる。
 $this->saveBulk($manySaveData);
@@ -86,19 +88,28 @@ $ tree
     - cake3のbakeのデフォルトではアプリケーションからのテストをする前提でしか書かれていない
     - プラグインとして提供するためには単体でのテストを書きたい
 - 英語でドキュメントを書くということ
-
++++
 +++
 準備中
 ---
 毎日コミットするようになった結果
 +++
++++
++++
 準備中
 ---
 docker-compose-dev を作った話
 +++
++++
++++
++++
 準備中
 ---
 テストを書く文化がなかったチームにテストを導入するために奮闘した話
++++
++++
++++
++++
 +++
 準備中
 ---
