@@ -11,7 +11,8 @@
 ![cakephp3bulker.png](images/cakephp3bulker.png)
 ---
 ## 作ったもの
-https://packagist.org/packages/ikezoe-makoto/cakephp3bulker
+https://packagist.org/packages/ikezoe-makoto/cakephp3bulker  
+
 cakephp3 にバルクインサートを提供するプラグインを作った(更新もできるよ)
 ---
 ## 使い方
@@ -19,14 +20,14 @@ cakephp3 にバルクインサートを提供するプラグインを作った(�
 ```
 composer require ikezoe-makoto/cakephp3bulker
 ```
-- 読み込み  
+### 読み込み  
 bootstrap.php でプラグインを読み込む
 ```php:/config/bootstrap.php
 Plugin::load('Cakephp3Bulker');
 ```
 ※README に一応書いてあります。
 ---
-モデルで Behavior を読み込む
+### モデルで Behavior を読み込む
 ```php:src/Model/Table/UsersTable.php
 class UsersTable extends Table
 {
@@ -39,9 +40,8 @@ class UsersTable extends Table
 }
 ```
 ---
-- 使用方法  
+### 使用方法  
 saveBulk を使って保存、更新できる
-
 ```php:src/Model/Table/UsersTable.php
 // $manySaveData にプライマリーキーがあれば更新になる。
 $this->saveBulk($manySaveData);
@@ -77,7 +77,7 @@ $ tree
 +++
 2. bakeできたらここに必要な処理を記述していきます。
 1. ロジックの実装が終わったらcomposer.jsonにパッケージ名など必要な情報を記述しgithubなどにあげます。
-1. compoer require で入れられるようにするために packagist に登録する
+1. composer require で入れられるようにするために packagist に登録する
 
 ここまですればプラグインとして公開されます！
 ---
