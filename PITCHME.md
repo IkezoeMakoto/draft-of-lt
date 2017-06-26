@@ -14,7 +14,6 @@
 - https://packagist.org/packages/ikezoe-makoto/cakephp3bulker  
 
 - cakephp3 にバルクインサートを提供するプラグインを作った(更新もできるよ)
-
 ---
 ## 使い方
 - インストール  
@@ -28,7 +27,7 @@ Plugin::load('Cakephp3Bulker');
 ```
 ※README に一応書いてあります。
 ---
-### モデルで Behavior を読み込む
+モデルで Behavior を読み込む
 ```php:src/Model/Table/UsersTable.php
 class UsersTable extends Table
 {
@@ -41,12 +40,12 @@ class UsersTable extends Table
 }
 ```
 ---
-### 使用方法  
-saveBulk を使って保存、更新できる
+使用方法  
 ```php:src/Model/Table/UsersTable.php
 // $manySaveData にプライマリーキーがあれば更新になる。
 $this->saveBulk($manySaveData);
 ```
+saveBulk を使って保存、更新できる
 ---
 ## 作ろうと思った背景
 - cakephp3でバルクインサートしたかった
@@ -89,3 +88,18 @@ $ tree
 - 英語でドキュメントを書くということ
 
 +++
+準備中
+---
+毎日コミットするようになった結果
++++
+準備中
+---
+docker-compose-dev を作った話
++++
+準備中
+---
+テストを書く文化がなかったチームにテストを導入するために奮闘した話
++++
+準備中
+---
+今更 docker について解説
