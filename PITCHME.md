@@ -1,99 +1,141 @@
 # cakephp3 のプラグイン作った話
 ---
 ## 目次
-1. [作ったもの](#作ったもの)
-1. [使い方](#使い方)
-1. [作ろうと思った背景](#作ろうと思った背景)
-1. [プラグインの作り方](#プラグインの作り方)
-1. [大変だったこと](#大変だったこと)
+1. [dockerとは](#dockerとは)
+1. [dockerとコマンド](#dockerとコマンド)
+1. [コンテナに対する操作](#コンテナに対する操作)
+1. [dockerfile](#dockerfile)
+1. [docker-compose](#docker-compose)
 ---
-## 作ったもの
-![cakephp3bulker.png](images/cakephp3bulker.png)
+# dockerとは
+## VM と コンテナ
+- VM
+    - VMはハイパーバイザを通してホストOSに対してのシステムコールを解釈させるなどの必要がある
+    - それぞれのVMには全て独立したOS・アプリケーション・ライブラリが必要
+- コンテナ
+    - ホストのカーネルは実行されるコンテナと共有される（コンテナは常にホストと同じカーネルを使う必要がある）
+    - コンテナ内で実行されるプロセスはホストで実行されるプロセスと同等で、ハイパーバイザの実行に伴うオーバーヘッドが存在しない
 ---
-## 作ったもの
-- https://packagist.org/packages/ikezoe-makoto/cakephp3bulker  
+## 利点
+- ホストOSとリソースを共有するのでVMに比べて遙かに効率的
+- ポータビリティが非常に高いので特定の環境に依存することがない
+- 軽量なので1つのマシンで複数のコンテナを実行できる
+- 構築に時間などをかけることがなく、ダウンロードするだけで実行することが可能
 
-- cakephp3 にバルクインサートを提供するプラグインを作った(更新もできるよ)
+(ここら辺でデータの永続化の話をしておく)
 ---
-## テストも書いてます
-CicleCIでテスト回してます！
-![CicleCI](images/cicleci.png)
+# dockerとコマンド
+![docker-command](images/docker-command.png)
 ---
-## 使い方
-- インストール  
-```
-composer require ikezoe-makoto/cakephp3bulker
-```
-- 読み込み  
-    - bootstrap.php でプラグインを読み込む
-```php:/config/bootstrap.php
-Plugin::load('Cakephp3Bulker');
-```
-※README に一応書いてあります。
+# コンテナに対する操作
 ---
-## 使い方
-- モデルで Behavior を読み込む
-```php:src/Model/Table/UsersTable.php
-class UsersTable extends Table
-{
-    public function example()
-    {
-        $this->addBehavior('Cakephp3Bulker.Bulker');
-        ...
-    }
-    ...
-}
+# コンテナをたてよう(run)
+hello world
 ```
----
-## 使い方
-- 使用方法  
-```php:src/Model/Table/UsersTable.php
-// $manySaveData にプライマリーキーがあれば更新になる。
-$this->saveBulk($manySaveData);
+docker run hello-world
 ```
-saveBulk を使って保存、更新できる
----
-## 作ろうと思った背景
-- cakephp3でバルクインサートしたかった
-- 調べてもプラグインはなかった。
-- プラグインでパパッと導入したかった。
-- 今ならプラグインないし、作ったらバズるかも？
----
-## プラグインの作り方
-1. cake3ではbakeでプラグインの初期状態も作ることができます。
-```
-$ bin/cake bake plugin Cakephp3Bulker
-$ cd plugins/Cakephp3Bulker
-$ tree
-.
-├── README.md
-├── composer.json
-├── config
-│   └── routes.php
-├── phpunit.xml.dist
-├── src
-│   └── Controller
-│       └── AppController.php
-├── tests
-│   └── bootstrap.php
-└── webroot
-    └── empty
-5 directories, 7 files
-```
-+++
-2. bakeできたらここに必要な処理を記述していきます。
-1. ロジックの実装が終わったらcomposer.jsonにパッケージ名など必要な情報を記述しgithubなどにあげます。
-1. composer require で入れられるようにするために packagist に登録する
 
-ここまですればプラグインとして公開されます！
+ubuntu
+```
+docker run -i -t ubuntu /bin/bash
+```
+
+nginx
+```
+docker run -p 8080:80 nginx
+```
 ---
-## 大変だったこと
-- プラグインのテストを書くということ  
-    - cake3のbakeのデフォルトではアプリケーションからのテストをする前提でしか書かれていない
-    - プラグインとして提供するためには単体でのテストを書きたい
-- (プラグイン関係ないけど)英語でドキュメントを書くということ
+# run のよく使うオプション
+オプションは後半で説明する dockerfile や docker-compose.yml で指定可能
+- -d
+    - バックグラウンドで実行
+- -e
+    - 環境変数をセットする
+- -i
+    - インタラクティブで起動(-tと合わせて使うことがおおい)
+- --link
+    - 他のコンテナに対するリンクを追加
+- --name 
+    - コンテナに名前をつけられる
+    - 例) dcoker run --name=hoge ubuntu
+- -t
+    - ttyをコンテナのプロセスに割り当てる
+- -v
+    - ボリュームをマウントする
+    - 例) docker run -v /var/www/html:/web/app ubuntu
+- -p
+    - expose, 露出用のポートの指定ができる
+    - 実際にはローカルポートフォワーディングされる
+    - 例) docker run -p 8080:80 ubuntu
+- -w
+    - 作業ディレクトリの指定
+    - 例) docker run -it -v /var/www/html:/web/app -w /web/app ubuntu /bin/bash
 ---
-## 意外と楽だったこと
-- CIの連携
-- プラグインとして機能を実装すること
-- packagistへの登録
+# コンテナに接続する(attach)
+```
+docker attach [コンテナ名/コンテナID]
+```
+※コンテナのメインプロセスが終了するとコンテナは落ちる仕様なので抜けるときは Ctrl+a, Ctrl+d で抜けよう
+---
+# コンテナにコマンドを実行させる(exec)
+```
+docker exec [コンテナ名/コンテナID] cat /etc/redhat-release
+docker exec -it [コンテナ名/コンテナID] /bin/bash
+```
+※こっちは普通に抜けて大丈夫
+---
+# コンテナの一覧(ps)
+実行中のコンテナ一覧を確認する
+```
+docker ps
+```
+-a オプションで全コンテナ一覧も確認できる
+```
+docker ps -a
+```
+---
+# コンテナの終了(stop)
+特定のコンテナを停止したいとき
+```
+docker stop [コンテナID/コンテナ名]
+```
+---
+# コンテナの削除(rm)
+特定のコンテナを削除したいとき
+```
+docker rm [コンテナID/コンテナ名]
+```
+---
+# イメージに対する操作
+---
+# イメージの検索(search)
+```
+docker search centos
+```
+---
+# イメージの取得(pull)
+```
+docker pull centos
+```
+---
+# イメージ一覧(images)
+docker イメージの一覧を確認できる
+```
+docker images
+```
+---
+# イメージの削除(rmi)
+```
+docker rmi [イメージ名/イメージID]
+```
+---
+# dockerfile
+docker イメージを記述しておけるもの
+```
+# dockerfileからイメージを構築する際のコマンド
+docker build -t [TAG名] .
+```
+---
+# docker-compose
+docker の１サービス１コンテナの思想に従い、複数のサービスを使用する際に使う。
+docker-compose.yml という設定ファイルを記述し、これを元に docker コンテナ群を構築することができる
