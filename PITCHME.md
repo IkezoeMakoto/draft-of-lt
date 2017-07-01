@@ -58,7 +58,7 @@ docker run -p 8080:80 nginx
     - 他のコンテナに対するリンクを追加
 - --name 
     - コンテナに名前をつけられる
-    - 例) dcoker run --name=hoge ubuntu
+    - 例) docker run --name=hoge ubuntu
 - -t
     - ttyをコンテナのプロセスに割り当てる
 - -v
