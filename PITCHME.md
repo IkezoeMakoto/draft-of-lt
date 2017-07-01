@@ -8,6 +8,7 @@
 1. [docker-compose](#docker-compose)
 ---
 # dockerとは
+---
 ## VM と コンテナ
 - VM
     - VMはハイパーバイザを通してホストOSに対してのシステムコールを解釈させるなどの必要がある
