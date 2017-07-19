@@ -23,8 +23,7 @@
 CicleCIでテスト回してます！
 ![CicleCI](images/cicleci.png)
 ---
-## 使い方
-- インストール  
+## 使い方 - インストール  
 ```
 composer require ikezoe-makoto/cakephp3bulker
 ```
@@ -36,8 +35,7 @@ Plugin::load('Cakephp3Bulker');
 ```
 ※README に一応書いてあります。
 ---
-## 使い方
-- モデルで Behavior を読み込む
+## 使い方 - モデルで Behavior を読み込む
 
 ```php:src/Model/Table/UsersTable.php
 class UsersTable extends Table
@@ -51,9 +49,7 @@ class UsersTable extends Table
 }
 ```
 ---
-## 使い方
-- 使用方法  
-
+## 使い方 - 使用方法
 ```php:src/Model/Table/UsersTable.php
 // $manySaveData にプライマリーキーがあれば更新になる。
 $this->saveBulk($manySaveData);
@@ -73,20 +69,14 @@ saveBulk を使って保存、更新できる
 $ bin/cake bake plugin Cakephp3Bulker
 $ cd plugins/Cakephp3Bulker
 $ tree
-.
-├── README.md
 ├── composer.json
 ├── config
 │   └── routes.php
-├── phpunit.xml.dist
 ├── src
 │   └── Controller
 │       └── AppController.php
 ├── tests
-│   └── bootstrap.php
 └── webroot
-    └── empty
-5 directories, 7 files
 ```
 
 ---
