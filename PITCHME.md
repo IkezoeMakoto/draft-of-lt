@@ -23,38 +23,32 @@
 CicleCIでテスト回してます！
 ![CicleCI](images/cicleci.png)
 ---
-## 使い方 - インストール  
+## 使い方
 ```
+# インストール  
 composer require ikezoe-makoto/cakephp3bulker
-```
-- 読み込み  
-    - bootstrap.php でプラグインを読み込む
-
-```php:/config/bootstrap.php
+  
+# プラグイン読み込み
+// config/bootstrap.php
 Plugin::load('Cakephp3Bulker');
 ```
 ※README に一応書いてあります。
 ---
-## 使い方 - モデルで Behavior を読み込む
-
-```php:src/Model/Table/UsersTable.php
+## 使い方
+```
+// 使用方法 (src/Model/Table/UsersTable.php)
 class UsersTable extends Table
 {
     public function example()
     {
+        // 使用したいモデルで Behavior を読み込む
         $this->addBehavior('Cakephp3Bulker.Bulker');
         ...
+        // $manySaveData にプライマリーキーがあれば更新になる。
+        $this->saveBulk($manySaveData);
     }
-    ...
 }
 ```
----
-## 使い方 - 使用方法
-```php:src/Model/Table/UsersTable.php
-// $manySaveData にプライマリーキーがあれば更新になる。
-$this->saveBulk($manySaveData);
-```
-saveBulk を使って保存、更新できる
 ---
 ## 作ろうと思った背景
 - cakephp3でバルクインサートしたかった
